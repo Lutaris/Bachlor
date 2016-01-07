@@ -1,0 +1,7 @@
+C:\Users\Christoffer\Dropbox\Bachlor Project\Bachlor_Library\Bachlor_Library\bin\Debug\Bachlor_Library.XML
+C:\Users\Christoffer\Dropbox\Bachlor Project\Bachlor_Library\Bachlor_Library\bin\Debug\Bachlor_Library.dll
+C:\Users\Christoffer\Dropbox\Bachlor Project\Bachlor_Library\Bachlor_Library\bin\Debug\Bachlor_Library.pdb
+C:\Users\Christoffer\Dropbox\Bachlor Project\Bachlor_Library\Bachlor_Library\bin\Debug\FSharp.Core.dll
+C:\Users\Christoffer\Dropbox\Bachlor Project\Bachlor_Library\Bachlor_Library\bin\Debug\FSharp.Core.xml
+C:\Users\Christoffer\Dropbox\Bachlor Project\Bachlor_Library\Bachlor_Library\obj\Debug\Bachlor_Library.dll
+C:\Users\Christoffer\Dropbox\Bachlor Project\Bachlor_Library\Bachlor_Library\obj\Debug\Bachlor_Library.pdb
