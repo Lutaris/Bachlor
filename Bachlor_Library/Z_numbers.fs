@@ -1,4 +1,23 @@
 ﻿module Z_numbers
+
+let mod' a b =
+    match a % b with
+    | pos when pos >= 0 -> pos
+    | neg               -> -neg
+
+type INum =
+    abstract GetValue : unit -> int
+
+
+type N4 () =
+  interface INum with
+    member i.GetValue () = 4
+
+type Mod<'n when 'n :> INum 
+            and 'n : (new : unit -> 'n)> (x : int) =
+    let n = (new 'n ()).GetValue()
+    let value = mod' x n
+
 type N_number =  | N of int
                  | Prime of N_number           
 
@@ -7,7 +26,7 @@ type N_number =  | N of int
 
 
 //let prime = 12073 // The prime selectet for now
-let prime = 7
+let prime =  101
 let set_prime(x) = Prime(N(x)) // prime make function
 let nat_prime = Seq.initInfinite ( fun i  -> (i % prime) )
 
