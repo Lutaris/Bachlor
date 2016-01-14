@@ -26,11 +26,17 @@ type N_number =  | N of int
 
 
 //let prime = 12073 // The prime selectet for now
-let prime =  101
+//let prime =  101
+//let prime =  7
+let prime = 2
 let set_prime(x) = Prime(N(x)) // prime make function
 let nat_prime = Seq.initInfinite ( fun i  -> (i % prime) )
 
-let make(x) = N(Seq.nth x nat_prime) // N make function
+let negative_check = function 
+                | x when x < 0 -> x+ prime
+                | x -> x
+
+let make(x) = N(negative_check(x%prime)) // N make function
 
 let a = 5
 
@@ -42,7 +48,7 @@ let rec value  = function // Get value function
             
 //
 let rec RemoveNegative = function 
-            | (prime,x) -> if x < 0 then RemoveNegative(prime,(x + prime)) else x
+            | (prime,x) -> if x < 0 then (x + prime) else x
 
 let rec RemoveNegative_list = function 
            | (prime,[]) -> []
