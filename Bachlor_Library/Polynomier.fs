@@ -2,6 +2,19 @@
 module Polynomier
 
 open Z_numbers
+open Field_Int
+
+
+type Mod_poly<'p,'n when 'p  :> INum_poly and 'n :> INum  
+                                             and 'n : (new : unit -> 'n ) 
+                                             and 'p : (new : unit -> 'p ) > (x : INum ) =
+                     let n = (new 'n ()).GetValue() 
+                     let p = (new 'p ()).GetValue() 
+                     
+
+      
+  
+   
 
 type Polynomier = |Poly of N_number list  
 
@@ -40,6 +53,7 @@ type Polynomier with
      static member (+) (x:Polynomier,y:Polynomier) = zeroreducer(Poly(add_poly(value(x),(value(y)))))
      static member (-) (x:Polynomier,y:Polynomier) = zeroreducer(Poly(sub_poly(value(x),(value(y)))))
      member x.Length = value(x).Length 
+     member x.Deg  = (value(x).Length-1) 
 
 let add_multi = function 
             |xs,y -> (List.map (fun i -> i*y) (value(xs)))
@@ -61,7 +75,7 @@ let  multy_poly (x,y) = multy_poly_count(x,value(y),0)
 type Polynomier with 
      static member (*) (x:Polynomier,y:Polynomier) = multy_poly(x,y)
         
-let prime_poly = []
+let prime_poly = Poly(make_list([1;1;0;0;0;1]))
 
 
 
@@ -71,15 +85,15 @@ let poly_divide_const = function
 
 
 
-let rec poly_gen_sift = function 
-        |(multi,0) -> multi::poly_gen_sift(multi,-1)
+let rec poly_gen_shift = function 
+        |(multi,0) -> multi::poly_gen_shift(multi,-1)
         |(multi,-1) -> []
-        |(multi,i) -> Z_numbers.make(0)::poly_gen_sift(multi,i-1)
+        |(multi,i) -> Z_numbers.make(0)::poly_gen_shift(multi,i-1)
 
 
 
 let reduse_poly = function 
-            |(x,y) -> Poly(poly_gen_sift(poly_divide_const( List.rev(value(x)),List.rev(value(y))) , x.Length-y.Length))
+            |(x,y) -> Poly(poly_gen_shift(poly_divide_const( List.rev(value(x)),List.rev(value(y))) , x.Length-y.Length))
 
 
 
@@ -94,8 +108,9 @@ let Poly_Euclid_start = function
 
 let modInverseSub_poly(f,g) = match Poly_Euclid_start(f,g)  with
                     | (_,_,_,_,_,t0::t1::tx) -> t1
-                                                        
 
+type Polynomier with                                                         
+        static member (/)  (x:Polynomier,y:Polynomier) = x * modInverseSub_poly(prime_poly,y)
 
 
 

@@ -43,10 +43,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="test_1.fsx" />
+    <Compile Include="Field_Int.fs" />
+    <Compile Include="Poly_p.fs" />
+    <Compile Include="Poly_with_reduce.fs" />
+    <Compile Include="Poly.fs" />
     <Compile Include="Lib.fs" />
     <Compile Include="Z_numbers.fs" />
     <None Include="test_2_Nmbers.fsx" />
     <Compile Include="Polynomier.fs" />
+    <None Include="test_3.fsx" />
   </ItemGroup>
   <PropertyGroup>
     <MinimumVisualStudioVersion Condition="'$(MinimumVisualStudioVersion)' == ''">11</MinimumVisualStudioVersion>

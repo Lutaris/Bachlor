@@ -1,22 +1,22 @@
 ﻿module Z_numbers
-
-let mod' a b =
-    match a % b with
-    | pos when pos >= 0 -> pos
-    | neg               -> -neg
-
-type INum =
-    abstract GetValue : unit -> int
-
-
-type N4 () =
-  interface INum with
-    member i.GetValue () = 4
-
-type Mod<'n when 'n :> INum 
-            and 'n : (new : unit -> 'n)> (x : int) =
-    let n = (new 'n ()).GetValue()
-    let value = mod' x n
+//
+//let mod' a b =
+//    match a % b with
+//    | pos when pos >= 0 -> pos
+//    | neg               -> -neg
+//
+//type INum =
+//    abstract GetValue : unit -> int
+//
+//
+//type N4 () =
+//  interface INum with
+//    member i.GetValue () = 4
+//
+//type Mod<'n when 'n :> INum 
+//            and 'n : (new : unit -> 'n)> (x : int) =
+//    let n = (new 'n ()).GetValue()
+//    let value = mod' x n
 
 type N_number =  | N of int
                  | Prime of N_number           
@@ -29,8 +29,7 @@ type N_number =  | N of int
 //let prime =  101
 //let prime =  7
 let prime = 2
-let set_prime(x) = Prime(N(x)) // prime make function
-let nat_prime = Seq.initInfinite ( fun i  -> (i % prime) )
+
 
 let negative_check = function 
                 | x when x < 0 -> x+ prime
@@ -57,11 +56,11 @@ let rec RemoveNegative_list = function
 
 
 type N_number with
-        static member (+) (x:N_number,y:N_number) = N(Seq.nth (value(x)+value(y)) nat_prime)
-        static member (*) (a,x:N_number)          = N(Seq.nth (a*value(x)) nat_prime)
-        static member (*) (x:N_number,y:N_number) = N(Seq.nth (value(x)*value(y)) nat_prime)
-        static member (-) (x:N_number,y:N_number) = N(Seq.nth (RemoveNegative(prime,value(x)-value(y))) nat_prime)
-        static member (%) (x:N_number,y:N_number) = N(Seq.nth (value(x)%value(y)) nat_prime)
+        static member (+) (x:N_number,y:N_number) = make((value(x)+value(y)) )
+        static member (*) (a,x:N_number)          = make((a*value(x)) )
+        static member (*) (x:N_number,y:N_number) = make((value(x)*value(y)) )
+        static member (-) (x:N_number,y:N_number) = make((RemoveNegative(prime,value(x)-value(y))) )
+        static member (%) (x:N_number,y:N_number) = make((value(x)%value(y)) )
  
 let rec Reminder = function a,b -> if (value(a)) > (value(b)) then Reminder(a-b,b) else (a%b)
 
@@ -97,10 +96,10 @@ let Allnumbers = [|0..1..prime-1|]
 
 let Allnumbers_N = Array.map (fun x -> make(x)) Allnumbers
 
-let Array_invers = Array.map (fun x -> modInverseSub(set_prime(prime),x)) Allnumbers_N
+let Array_invers = Array.map (fun x -> modInverseSub(N(prime),x)) Allnumbers_N
                        
 type N_number with   
-            static member (/) (x:N_number,y:N_number) = x*make(modInverse(set_prime(prime),y))    
+            static member (/) (x:N_number,y:N_number) = x*make(modInverse(N(prime),y))    
 
 
 
